@@ -1,0 +1,28 @@
+{
+    "Id": 4,
+    "Title": "Chicken Parm",
+    "Type": "main course",
+    "Ingredients": [
+        {"Item": "chicken breast", "Quantity": 4, "Unit": "pieces"},
+        {"Item": "breadcrumbs", "Quantity": 200, "Unit": "g"},
+        {"Item": "parmesan cheese", "Quantity": 100, "Unit": "g"},
+        {"Item": "egg", "Quantity": 2, "Unit": ""},
+        {"Item": "flour", "Quantity": 100, "Unit": "g"},
+        {"Item": "olive oil", "Quantity": 3, "Unit": "tbsp"},
+        {"Item": "tomato sauce", "Quantity": 500, "Unit": "ml"},
+        {"Item": "mozzarella cheese", "Quantity": 200, "Unit": "g"},
+        {"Item": "salt", "Quantity": 1, "Unit": "tsp"},
+        {"Item": "pepper", "Quantity": 1, "Unit": "tsp"},
+        {"Item": "basil", "Quantity": 1, "Unit": "bunch"}
+    ],
+    "Instructions": [
+        "Preheat the oven to 180°C (350°F).",
+        "Pound the chicken breasts to an even thickness.",
+        "Season the chicken with salt and pepper.",
+        "Dredge the chicken in flour, dip in beaten eggs, and coat with breadcrumbs mixed with parmesan cheese.",
+        "Heat olive oil in a pan and cook the chicken until golden brown on both sides.",
+        "Place the chicken in a baking dish, top with tomato sauce and mozzarella cheese.",
+        "Bake in the preheated oven for 20-25 minutes until the cheese is melted and bubbly.",
+        "Garnish with fresh basil and serve."
+    ]
+}

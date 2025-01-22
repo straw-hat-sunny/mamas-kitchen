@@ -1,0 +1,25 @@
+{
+    "Id": 1,
+    "Title": "Spaghetti Bolognese",
+    "Type": "main course",
+    "Ingredients": [
+        {"Item": "spaghetti", "Quantity": 200, "Unit": "g"},
+        {"Item": "minced beef", "Quantity": 500, "Unit": "g"},
+        {"Item": "onion", "Quantity": 1, "Unit": ""},
+        {"Item": "garlic", "Quantity": 2, "Unit": "cloves"},
+        {"Item": "tomato sauce", "Quantity": 500, "Unit": "ml"},
+        {"Item": "olive oil", "Quantity": 2, "Unit": "tbsp"},
+        {"Item": "salt", "Quantity": 1, "Unit": "tsp"},
+        {"Item": "pepper", "Quantity": 1, "Unit": "tsp"}
+    ],
+    "Instructions": [
+        "Chop the onion and garlic",
+        "Heat the olive oil in a pan",
+        "Add the onion and garlic and cook until soft",
+        "Add the minced beef and cook until browned",
+        "Add the tomato sauce, salt, and pepper",
+        "Simmer for 20 minutes",
+        "Cook the spaghetti according to the package instructions",
+        "Serve the spaghetti with the bolognese sauce on top"
+    ]
+}

@@ -1,0 +1,27 @@
+{
+    "Id": 2,
+    "Title": "Chicken Curry",
+    "Type": "main course",
+    "Ingredients": [
+        {"Item": "chicken breast", "Quantity": 500, "Unit": "g"},
+        {"Item": "onion", "Quantity": 1, "Unit": ""},
+        {"Item": "garlic", "Quantity": 3, "Unit": "cloves"},
+        {"Item": "ginger", "Quantity": 1, "Unit": "tbsp"},
+        {"Item": "curry powder", "Quantity": 2, "Unit": "tbsp"},
+        {"Item": "coconut milk", "Quantity": 400, "Unit": "ml"},
+        {"Item": "olive oil", "Quantity": 2, "Unit": "tbsp"},
+        {"Item": "salt", "Quantity": 1, "Unit": "tsp"},
+        {"Item": "pepper", "Quantity": 1, "Unit": "tsp"},
+        {"Item": "cilantro", "Quantity": 1, "Unit": "bunch"}
+    ],
+    "Instructions": [
+        "Chop the onion, garlic, and ginger",
+        "Heat the olive oil in a pan",
+        "Add the onion, garlic, and ginger and cook until soft",
+        "Add the chicken breast and cook until browned",
+        "Add the curry powder and cook for 2 minutes",
+        "Add the coconut milk, salt, and pepper",
+        "Simmer for 20 minutes",
+        "Garnish with chopped cilantro and serve"
+    ]
+}

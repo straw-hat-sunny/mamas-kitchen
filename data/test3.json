@@ -1,0 +1,27 @@
+{
+    "Id": 3,
+    "Title": "Vegetable Stir Fry",
+    "Type": "main course",
+    "Ingredients": [
+        {"Item": "broccoli", "Quantity": 200, "Unit": "g"},
+        {"Item": "carrot", "Quantity": 2, "Unit": ""},
+        {"Item": "bell pepper", "Quantity": 1, "Unit": ""},
+        {"Item": "snap peas", "Quantity": 100, "Unit": "g"},
+        {"Item": "soy sauce", "Quantity": 3, "Unit": "tbsp"},
+        {"Item": "sesame oil", "Quantity": 1, "Unit": "tbsp"},
+        {"Item": "garlic", "Quantity": 2, "Unit": "cloves"},
+        {"Item": "ginger", "Quantity": 1, "Unit": "tbsp"},
+        {"Item": "cornstarch", "Quantity": 1, "Unit": "tbsp"},
+        {"Item": "water", "Quantity": 100, "Unit": "ml"},
+        {"Item": "sesame seeds", "Quantity": 1, "Unit": "tbsp"}
+    ],
+    "Instructions": [
+        "Chop the broccoli, carrot, and bell pepper.",
+        "Heat the sesame oil in a pan.",
+        "Add the garlic and ginger and cook until fragrant.",
+        "Add the broccoli, carrot, bell pepper, and snap peas and stir fry for 5 minutes.",
+        "Mix the soy sauce, cornstarch, and water in a bowl.",
+        "Add the sauce to the pan and cook until the vegetables are tender and the sauce has thickened.",
+        "Sprinkle with sesame seeds and serve."
+    ]
+}
