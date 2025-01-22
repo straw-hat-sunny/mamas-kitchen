@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  mamas-kitchen:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: mamas-kitchen
+    depends_on:
+      - azureite
+    environment:
+      - AZURE_STORAGE_CONNECTION_STRING=DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://azureite:10000/devstoreaccount1;QueueEndpoint=http://azureite:10001/devstoreaccount1;TableEndpoint=http://azureite:10002/devstoreaccount1;
+    ports:
+      - "8000:8000"
+
+  azureite:
+    image: mcr.microsoft.com/azure-storage/azurite
+    container_name: azureite
+    ports:
+      - "10000:10000"
+      - "10001:10001"
+    command: "azurite --blobHost 0.0.0.0 --queueHost 0.0.0.0"
