@@ -4,7 +4,7 @@ services:
   mamas-kitchen:
     build:
       context: .
-      dockerfile: Dockerfile.backend
+      dockerfile: Dockerfile.mamas-kitchen
     container_name: mamas-kitchen
     depends_on:
       - azureite
