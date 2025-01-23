@@ -8,7 +8,8 @@
 - [x] Create a InMemory Recipe Store to serve to the UI
 - [x] local upload to blob store
 - [x] local enqueue message
-- [] build worker(python) to pull message and transcribe
+- [x] build worker(python) to pull message and 
+- [] transcribe locally
 - [] connect to a database(mongo)
 
 
@@ -22,11 +23,11 @@
 
 
 #### Clean up Tasks
-- [] restructure the code
+- [x] restructure the code
 - [] add linters and formatters to auto check during build
-- [] use docker to build frontend and a script to tie it in with go binary
-- [] add cmd folder
-- [] build scripts - docker compose
-- [] upload to github
+- [x] use docker to build frontend and a script to tie it in with go binary
+- [x] add cmd folder
+- [x] build scripts - docker compose
+- [x] upload to github
 - [] use cloud prod envs
 
