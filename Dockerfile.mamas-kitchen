@@ -13,7 +13,7 @@ COPY cmd/ /app/cmd/
 RUN make build-backend
 
 # Stage 2: Build Frontend
-FROM node:latest as build_frontend
+FROM node:latest AS build_frontend
 
 # Install TypeScript globally
 RUN npm install -g typescript

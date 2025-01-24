@@ -27,6 +27,7 @@ services:
     container_name: transcriber-worker
     depends_on: 
       - azureite
+      - open-ai
   
   open-ai:
     image: localai/localai:v2.25.0-ffmpeg-core

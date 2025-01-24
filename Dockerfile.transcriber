@@ -13,4 +13,4 @@ COPY  requirements.txt /app
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Run the specified Python script
-CMD ["python", "test_worker.py"]
+CMD ["python", "transcriber_worker.py"]

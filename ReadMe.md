@@ -4,11 +4,14 @@
 ### Tasks
 
 #### Backend
-- [] Add Logging 
+- [] Add Go Logging 
+- [] Add Python Logging
 - [x] Create a InMemory Recipe Store to serve to the UI
 - [x] local upload to blob store
 - [x] local enqueue message
-- [x] build worker(python) to pull message and 
+- [x] build worker(python) to pull message
+- [] add error handling for python
+- [] add error handling for golang
 - [] transcribe locally
 - [] connect to a database(mongo)
 
