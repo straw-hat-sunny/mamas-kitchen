@@ -20,6 +20,14 @@ services:
       - "10001:10001"
     command: "azurite --blobHost 0.0.0.0 --queueHost 0.0.0.0"
   
+  transcriber-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.transcriber
+    container_name: transcriber-worker
+    depends_on: 
+      - azureite
+  
   open-ai:
     image: localai/localai:v2.25.0-ffmpeg-core
     # For a specific version:
