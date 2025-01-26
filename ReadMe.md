@@ -1,5 +1,11 @@
 ## Mamas Kitchen:
 
+### How to run:
+In order to run Mama's Kitchen you will need to have docker and docker-compose installed. 
+
+Run `docker compose -f 'docker-compose.yml' up -d --build `
+> If you want to see logs you can omit the "-d"
+
 
 ### Tasks
 
@@ -12,7 +18,8 @@
 - [x] build worker(python) to pull message
 - [] add error handling for python
 - [] add error handling for golang
-- [] transcribe locally
+- [x] transcribe locally
+- [] transform locally
 - [] connect to a database(mongo)
 
 
