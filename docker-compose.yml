@@ -27,6 +27,7 @@ services:
     container_name: transcriber-worker
     depends_on: 
       - azureite
+      - mamas-kitchen
       - open-ai
   
   open-ai:

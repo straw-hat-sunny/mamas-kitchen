@@ -3,17 +3,28 @@ package audio
 import (
 	"context"
 	"encoding/json"
+	"io"
 	"log"
 	"net/http"
-
-	"github.com/Azure/azure-sdk-for-go/sdk/storage/azblob"
-	"github.com/Azure/azure-sdk-for-go/sdk/storage/azqueue"
 )
 
-type AudioHandler struct{}
+type AudioHandler struct {
+	blobClient  BlobClient
+	queueClient QueueClient
+}
 
-func NewAudioHandler() (*AudioHandler, error) {
-	return &AudioHandler{}, nil
+type BlobClient interface {
+	Upload(ctx context.Context, fileName string, data io.Reader) error
+}
+type QueueClient interface {
+	EnqueueMessage(ctx context.Context, msg string) error
+}
+
+func NewAudioHandler(bc BlobClient, qc QueueClient) (*AudioHandler, error) {
+	return &AudioHandler{
+		blobClient:  bc,
+		queueClient: qc,
+	}, nil
 }
 
 func (ah AudioHandler) HandleUploadToAzure(w http.ResponseWriter, r *http.Request) {
@@ -34,68 +45,8 @@ func (ah AudioHandler) HandleUploadToAzure(w http.ResponseWriter, r *http.Reques
 
 	defer file.Close()
 
-	connectionString := "AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;DefaultEndpointsProtocol=http;BlobEndpoint=http://azureite:10000/devstoreaccount1;QueueEndpoint=http://azureite:10001/devstoreaccount1;"
-	client, err := azblob.NewClientFromConnectionString(connectionString, nil)
-	if err != nil {
-		log.Println("Unable to create a new client")
-		http.Error(w, "Unable to create a new client", http.StatusInternalServerError)
-		return
-	}
-	log.Println("listing containers")
-	// List all containers in the account
-	pager := client.NewListContainersPager(nil)
-	for pager.More() {
-		resp, err := pager.NextPage(context.Background())
-		if err != nil {
-			log.Println("Error listing containers")
-			http.Error(w, "Error listing containers", http.StatusInternalServerError)
-			return
-		}
-		if len(resp.ContainerItems) == 0 {
-			log.Println("No containers found")
-			_, err = client.CreateContainer(context.Background(), "audio-files", nil)
-			if err != nil {
-				log.Println("Error creating container")
-				http.Error(w, "Error creating container", http.StatusInternalServerError)
-				return
-			}
-		}
-	}
-
-	log.Println("Listing queues")
-	queueServiceClient, err := azqueue.NewServiceClientFromConnectionString(connectionString, nil)
-	if err != nil {
-		log.Println("Unable to create a new queue service client")
-		http.Error(w, "Unable to create a new queue service client", http.StatusInternalServerError)
-		return
-	}
-
-	queuePager := queueServiceClient.NewListQueuesPager(nil)
-	for queuePager.More() {
-		queueResp, err := queuePager.NextPage(context.Background())
-		if err != nil {
-			log.Println("Error listing queues")
-			http.Error(w, "Error listing queues", http.StatusInternalServerError)
-			return
-		}
-		if len(queueResp.Queues) == 0 {
-			log.Println("No queues found")
-			_, err = queueServiceClient.CreateQueue(context.Background(), "audio-files", nil)
-			if err != nil {
-				log.Println("Error creating queue")
-				http.Error(w, "Error creating queue", http.StatusInternalServerError)
-				return
-			}
-		}
-	}
-	queueClient, err := azqueue.NewQueueClientFromConnectionString(connectionString, "audio-files", nil)
-	if err != nil {
-		log.Println("Unable to create a new queue client")
-
-	}
-
-	// Create a container client
-	_, err = client.UploadStream(context.Background(), "audio-files", handler.Filename, file, nil)
+	// upload file to blob store
+	err = ah.blobClient.Upload(context.Background(), handler.Filename, file)
 	if err != nil {
 		log.Println(err.Error())
 		http.Error(w, "Unable to upload the file", http.StatusInternalServerError)
@@ -112,7 +63,7 @@ func (ah AudioHandler) HandleUploadToAzure(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
-	_, err = queueClient.EnqueueMessage(context.Background(), string(msgBytes), nil)
+	err = ah.queueClient.EnqueueMessage(context.Background(), string(msgBytes))
 	if err != nil {
 		log.Println(err.Error())
 		http.Error(w, "Unable to enqueue the message", http.StatusInternalServerError)

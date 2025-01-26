@@ -26,7 +26,8 @@ class TranscriberWorker(Worker):
             return
 
         try:
-            self.transcriber.run(file_name, blob)
+            transcribed_text = self.transcriber.run(file_name, blob)
+            logging.info(transcribed_text)
         except Exception as e:
             logging.info("transcriber failed to process audio")
             logging.error(e)
@@ -34,5 +35,5 @@ class TranscriberWorker(Worker):
 
 transcriber = LocalTranscriber()
 
-worker = TranscriberWorker(transcriber,"audio-files",1,"audio-files")
+worker = TranscriberWorker(transcriber,"blob-uploaded",1,"blob-transcribed")
 worker.run()
