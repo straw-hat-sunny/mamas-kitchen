@@ -29,8 +29,6 @@ class LocalTranscriber(Transcriber):
         else:
             logging.error(f"Transcription failed with status code {response.status_code}")
 
-
-
 class OpenAITranscriber(Transcriber):
     def __init__(self):
         pass
