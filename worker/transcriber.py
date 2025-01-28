@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 import logging
 import requests
-import io
 
 logging.basicConfig(level=logging.INFO)
 
