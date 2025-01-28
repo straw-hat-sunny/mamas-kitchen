@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"errors"
 	"log"
 	"net/http"
 	"time"
@@ -12,7 +11,6 @@ import (
 	"mamas-kitchen/internal/recipe"
 	"mamas-kitchen/internal/ui"
 
-	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/gorilla/mux"
 )
 
@@ -33,45 +31,22 @@ func main() {
 
 	blobClient, err := blobService.CreateBlobContainer(ctx, "audio-files")
 	if err != nil {
-		var responseError *azcore.ResponseError
-		if errors.As(err, &responseError) {
-			if responseError.StatusCode != 409 {
-				log.Fatalf("could not create blob %s: %v", "audio-files", responseError.Error())
-			}
-		}
-
+		log.Fatalf("error: %v", err)
 	}
 
 	queueClient, err := queueService.CreateQueue(ctx, "blob-uploaded")
 	if err != nil {
-		var responseError *azcore.ResponseError
-		if errors.As(err, &responseError) {
-			if responseError.StatusCode != 409 {
-				log.Fatalf("could not create queue %s: %v", "blob-uploaded", err)
-			}
-		}
-
+		log.Fatalf("error: %v", err)
 	}
 
 	_, err = queueService.CreateQueue(ctx, "blob-transcribed")
 	if err != nil {
-		var responseError *azcore.ResponseError
-		if errors.As(err, &responseError) {
-			if responseError.StatusCode != 409 {
-				log.Fatalf("count not create queue %s: %v", "blob-transcribed", err)
-			}
-		}
-
+		log.Fatalf("error: %v", err)
 	}
 
 	_, err = queueService.CreateQueue(ctx, "blob-translated")
 	if err != nil {
-		var responseError *azcore.ResponseError
-		if errors.As(err, &responseError) {
-			if responseError.StatusCode != 409 {
-				log.Fatalf("count not create queue %s: %v", "blob-translated", err)
-			}
-		}
+		log.Fatalf("error: %v", err)
 	}
 
 	router := mux.NewRouter()

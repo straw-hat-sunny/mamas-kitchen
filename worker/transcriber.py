@@ -17,7 +17,7 @@ class LocalTranscriber(Transcriber):
     def run(self, file_name:str, audio:bytes) -> str:
         logging.info("Local Transcriber Running")
         response = requests.post(
-            "http://open-ai:8080/v1/audio/transcriptions",
+            "http://local-ai:8080/v1/audio/transcriptions",
             files={"file": (file_name, audio, "audio/mp4")},
             data={"model": "whisper-1"}
         )

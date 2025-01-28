@@ -28,7 +28,7 @@ services:
     depends_on: 
       - azureite
       - mamas-kitchen
-      - open-ai
+      - local-ai
   
   translator-worker:
     build:
@@ -38,9 +38,9 @@ services:
     depends_on: 
       - azureite
       - mamas-kitchen
-      - open-ai
+      - local-ai
   
-  open-ai:
+  local-ai:
     image: localai/localai:v2.25.0-ffmpeg-core
     # For a specific version:
     # image: localai/localai:v2.25.0-aio-cpu
@@ -61,3 +61,4 @@ services:
       # ...
     volumes:
       - ./models:/build/models:cached
+  

@@ -11,13 +11,12 @@ class TranslatorWorker(Worker):
         self.translator = translator
 
     def process(self,msg):
-        logging.info(msg)
         if 'text' not in msg:
             logging.error(f"Message does not contain 'text' property\n {msg}")
             return
 
         recipe_text = msg['text']
-        logging.info(f"Processing recipe: {recipe_text}")
+        logging.info(f"Processing recipe:")
         try:
             recipe_object = translator.run(recipe_text)
             logging.info(recipe_object)

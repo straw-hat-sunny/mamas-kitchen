@@ -2,8 +2,11 @@ package azstorage
 
 import (
 	"context"
+	"errors"
+	"fmt"
 	"io"
 
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/storage/azblob"
 )
 
@@ -24,7 +27,17 @@ func NewBlobService(connectionString string) (*BlobService, error) {
 func (bs BlobService) CreateBlobContainer(ctx context.Context, containerName string) (*Blob, error) {
 	_, err := bs.client.CreateContainer(ctx, containerName, nil)
 	if err != nil {
-		return nil, err
+		var responseError *azcore.ResponseError
+		if errors.As(err, &responseError) {
+			if responseError.StatusCode != 409 {
+				return nil, errors.New(fmt.Sprintf("could not create blob %s: %v", containerName, responseError.Error()))
+			}else{
+				return &Blob{
+					containerName: containerName,
+					client:        bs.client,
+				}, nil
+			}
+		}
 	}
 
 	return &Blob{

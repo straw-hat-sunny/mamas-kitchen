@@ -2,7 +2,10 @@ package azstorage
 
 import (
 	"context"
+	"errors"
+	"fmt"
 
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/Azure/azure-sdk-for-go/sdk/storage/azqueue"
 )
 
@@ -26,7 +29,16 @@ func (qs QueueService) CreateQueue(ctx context.Context, queueName string) (*Queu
 
 	_, err := qc.Create(ctx, nil)
 	if err != nil {
-		return nil, err
+		var responseError *azcore.ResponseError
+		if errors.As(err, &responseError) {
+			if responseError.StatusCode != 409 {
+				return nil, errors.New(fmt.Sprintf("could not create queue %s: %v", queueName, responseError.Error()))
+			}else{
+				return &Queue{
+					client: qc,
+				}, nil
+			}
+		}
 	}
 
 	return &Queue{
