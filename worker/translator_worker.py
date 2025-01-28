@@ -16,11 +16,12 @@ class TranslatorWorker(Worker):
             return
 
         recipe_text = msg['text']
+      
         logging.info(f"Processing recipe:")
         try:
             recipe_object = translator.run(recipe_text)
             logging.info(recipe_object)
-            processed_msg = json.dumps({"status":"complete"})
+            processed_msg = json.dumps(recipe_object)
             return processed_msg
         except Exception as e:
             logging.info("translator failed")
@@ -30,3 +31,6 @@ class TranslatorWorker(Worker):
 translator = LocalTranslator()
 tw = TranslatorWorker(translator, "blob-transcribed", 1, "blob-translated")
 tw.run()
+
+
+
