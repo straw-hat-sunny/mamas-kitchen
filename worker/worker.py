@@ -17,13 +17,18 @@ class Worker(ABC):
     @abstractmethod
     def process(self,msg):
         pass
+    
+
 
     def run(self):
         while True:
             messages = self.recieve_queue_client.receive_messages(max_messages=self.max_msgs)
             for message in messages:
-                msg = json.loads(message.content)
-                self.process(msg)
+                msg_content = json.loads(message.content)
+                processed_msg = self.process(msg_content)
+                # if there are no errors processing the message then we can delete the message from the queue and send message to the send_aueue
                 self.recieve_queue_client.delete_message(message)
+                self.send_queue_client.send_message(processed_msg)
+                
             time.sleep(15)
     

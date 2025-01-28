@@ -12,12 +12,12 @@ Run `docker compose -f 'docker-compose.yml' up -d --build `
 #### Backend
 - [] Add Go Logging 
 - [] Add Python Logging
+- [] add error handling for python
+- [] add error handling for golang
 - [x] Create a InMemory Recipe Store to serve to the UI
 - [x] local upload to blob store
 - [x] local enqueue message
 - [x] build worker(python) to pull message
-- [] add error handling for python
-- [] add error handling for golang
 - [x] transcribe locally
 - [] transform locally
 - [] connect to a database(mongo)

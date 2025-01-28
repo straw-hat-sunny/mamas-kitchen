@@ -2,6 +2,7 @@ from worker import Worker
 from transcriber import Transcriber, LocalTranscriber
 from az import BlobService
 import logging
+import json
 
 logging.basicConfig(level=logging.INFO)
 
@@ -28,6 +29,11 @@ class TranscriberWorker(Worker):
         try:
             transcribed_text = self.transcriber.run(file_name, blob)
             logging.info(transcribed_text)
+            msg = {
+                "text" : transcribed_text
+            }
+            msg_content = json.dumps(msg)
+            return msg_content
         except Exception as e:
             logging.info("transcriber failed to process audio")
             logging.error(e)

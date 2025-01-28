@@ -1,18 +1,22 @@
 from worker import Worker 
 import logging
+import json
 
 logging.basicConfig(level=logging.INFO)
 
 class TestWorker(Worker):
     def process(self,msg):
-        if 'FileName' not in msg:
-            logging.error(f"Message does not contain 'filename' property\n {msg}")
+        logging.info(msg)
+        if 'text' not in msg:
+            logging.error(f"Message does not contain 'text' property\n {msg}")
             return
 
-        filename = msg['FileName']
-        logging.info(f"Processing file: {filename}")
+        filename = msg['text']
+        logging.info(f"Processing recipe: {filename}")
+
+        processed_msg = json.dumps({"status":"complete"})
+        return processed_msg
 
 
-
-tw = TestWorker("audio-files", 1, "audio-files")
+tw = TestWorker("blob-transcribed", 1, "blob-translated")
 tw.run()

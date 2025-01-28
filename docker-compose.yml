@@ -30,6 +30,16 @@ services:
       - mamas-kitchen
       - open-ai
   
+  translator-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.translator
+    container_name: translator-worker
+    depends_on: 
+      - azureite
+      - mamas-kitchen
+      - open-ai
+  
   open-ai:
     image: localai/localai:v2.25.0-ffmpeg-core
     # For a specific version:

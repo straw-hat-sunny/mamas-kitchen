@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"log"
 	"net/http"
 	"time"
@@ -11,6 +12,7 @@ import (
 	"mamas-kitchen/internal/recipe"
 	"mamas-kitchen/internal/ui"
 
+	"github.com/Azure/azure-sdk-for-go/sdk/azcore"
 	"github.com/gorilla/mux"
 )
 
@@ -21,7 +23,7 @@ func main() {
 	// create infrastructure
 	queueService, err := azstorage.NewQueueService(connectionString)
 	if err != nil {
-		log.Fatalf("could not connect to queue store: %v", err)
+		log.Fatalf("[%s] could not connect to queue store: %v", err)
 	}
 
 	blobService, err := azstorage.NewBlobService(connectionString)
@@ -31,17 +33,45 @@ func main() {
 
 	blobClient, err := blobService.CreateBlobContainer(ctx, "audio-files")
 	if err != nil {
-		log.Fatalf("could not create blob container: %v", err)
+		var responseError *azcore.ResponseError
+		if errors.As(err, &responseError) {
+			if responseError.StatusCode != 409 {
+				log.Fatalf("could not create blob %s: %v", "audio-files", responseError.Error())
+			}
+		}
+
 	}
 
 	queueClient, err := queueService.CreateQueue(ctx, "blob-uploaded")
 	if err != nil {
-		log.Fatalf("could not create queue %s: %v", "blob-uploaded", err)
+		var responseError *azcore.ResponseError
+		if errors.As(err, &responseError) {
+			if responseError.StatusCode != 409 {
+				log.Fatalf("could not create queue %s: %v", "blob-uploaded", err)
+			}
+		}
+
 	}
 
 	_, err = queueService.CreateQueue(ctx, "blob-transcribed")
 	if err != nil {
-		log.Fatalf("count not create queue %s: %v", "blob-transcribed", err)
+		var responseError *azcore.ResponseError
+		if errors.As(err, &responseError) {
+			if responseError.StatusCode != 409 {
+				log.Fatalf("count not create queue %s: %v", "blob-transcribed", err)
+			}
+		}
+
+	}
+
+	_, err = queueService.CreateQueue(ctx, "blob-translated")
+	if err != nil {
+		var responseError *azcore.ResponseError
+		if errors.As(err, &responseError) {
+			if responseError.StatusCode != 409 {
+				log.Fatalf("count not create queue %s: %v", "blob-translated", err)
+			}
+		}
 	}
 
 	router := mux.NewRouter()
