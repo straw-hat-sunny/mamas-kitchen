@@ -1,10 +1,18 @@
 ## Mamas Kitchen:
 
-### How to run:
+### How to run locally:
 In order to run Mama's Kitchen you will need to have docker and docker-compose installed. 
 
 Run `docker compose -f 'docker-compose.yml' up -d --build `
 > If you want to see logs you can omit the "-d"
+
+Once all the containers are running you will need to install the models necessary.
+1. Go to localhost:8080/browse.
+2. Install phi-4 model.
+3. Install whipser-1 model.
+4. Navigate to localhost:8080/ to see the progress of the install.
+
+Once the models are installed you can upload your recipe audio to the site: localhost:8000/
 
 
 ### Tasks
@@ -19,7 +27,7 @@ Run `docker compose -f 'docker-compose.yml' up -d --build `
 - [x] local enqueue message
 - [x] build worker(python) to pull message
 - [x] transcribe locally
-- [] transform locally
+- [x] transform locally
 - [] connect to a database(mongo)
 
 
