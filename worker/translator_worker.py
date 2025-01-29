@@ -20,8 +20,10 @@ class TranslatorWorker(Worker):
         logging.info(f"Processing recipe:")
         try:
             recipe_object = translator.run(recipe_text)
-            logging.info(recipe_object)
-            processed_msg = json.dumps(recipe_object)
+            data = {
+                "recipe": recipe_object
+            }
+            processed_msg = json.dumps(data)
             return processed_msg
         except Exception as e:
             logging.info("translator failed")

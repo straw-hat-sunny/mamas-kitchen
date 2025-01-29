@@ -15,7 +15,7 @@ class LocalTranslator(Translator):
         response = requests.post(
             "http://local-ai:8080//v1/chat/completions",
             json = {
-                "model": "phi-4",
+                "model": "gpt-4",
                 "messages": [
                     {
                         "role": "system",

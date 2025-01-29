@@ -49,6 +49,11 @@ func main() {
 		log.Fatalf("error: %v", err)
 	}
 
+	_, err = queueService.CreateQueue(ctx, "storage-completed")
+	if err != nil {
+		log.Fatalf("error: %v", err)
+	}
+
 	router := mux.NewRouter()
 
 	// Recipe Data API
