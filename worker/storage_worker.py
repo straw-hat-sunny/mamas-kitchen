@@ -18,12 +18,12 @@ class StorageWorker(Worker):
    def __init__(self,recieve_queue_name, max_msg, send_queue_name):
         super().__init__(recieve_queue_name,max_msg,send_queue_name)
         self.client =  pymongo.MongoClient("mongodb://root:example@mongo:27017/")
-        self.collection = self.client['recipes']
+        self.collection = self.client['local']['recipes']
 
    
    def process(self, msg):
       if 'recipe' not in msg:
-         logging.error(f"Message does ntoe contain 'recipe' property\n{msg}")
+         logging.error(f"Message doesn't the contain 'recipe' property\n{msg}")
          return
       recipe = msg['recipe']
 

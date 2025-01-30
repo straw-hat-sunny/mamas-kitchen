@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
-	"strconv"
 
 	"github.com/gorilla/mux"
 )
@@ -27,14 +26,14 @@ func NewRecipeHandler() (*RecipeHandler, error) {
 
 // PartialRecipe struct to represent a partial recipe namely the id, name and description
 type PartialRecipe struct {
-	Id    int    `json:"id"`
+	Id    string `json:"id"`
 	Title string `json:"title"`
 	Type  string `json:"type"`
 }
 
 type Service interface {
 	ListRecipes(ctx context.Context) ([]PartialRecipe, error)
-	GetRecipe(ctx context.Context, id int) (*Recipe, error)
+	GetRecipe(ctx context.Context, id string) (*Recipe, error)
 }
 
 // ListRecipeResponse struct to represent the response of a list recipe request
@@ -61,14 +60,8 @@ func (rh RecipeHandler) HandleGetRecipe(w http.ResponseWriter, r *http.Request) 
 	vars := mux.Vars(r)
 	id := vars["id"]
 	log.Println(id)
-	// convert the id to an int
-	// if there is an error, return a 400 bad request
-	// with an error message
-	recipeId, err := strconv.Atoi(id)
-	if err != nil {
-		http.Error(w, "invalid recipe id", http.StatusBadRequest)
-		return
-	}
+
+	recipeId := id
 
 	// get the recipe from the database
 	recipe, err := rh.svc.GetRecipe(r.Context(), recipeId)

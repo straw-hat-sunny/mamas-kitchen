@@ -1,10 +1,13 @@
 package recipe
 
-import "context"
+import (
+	"context"
+	"log"
+)
 
 type Store interface {
 	ListRecipes() ([]Recipe, error)
-	GetRecipe(id int) (*Recipe, error)
+	GetRecipe(id string) (*Recipe, error)
 }
 
 type service struct {
@@ -13,7 +16,8 @@ type service struct {
 }
 
 func NewService() (Service, error) {
-	store, err := NewFileStore("data")
+	//store, err := NewFileStore("data")
+	store, err := NewMongoStore()
 	if err != nil {
 		return nil, err
 	}
@@ -38,6 +42,7 @@ func (s *service) ListRecipes(ctx context.Context) ([]PartialRecipe, error) {
 
 	partialRecipes := make([]PartialRecipe, len(recipes))
 	for i, recipe := range recipes {
+		log.Println(recipe)
 		partialRecipes[i] = PartialRecipe{
 			Id:    recipe.Id,
 			Title: recipe.Title,
@@ -48,7 +53,7 @@ func (s *service) ListRecipes(ctx context.Context) ([]PartialRecipe, error) {
 	return partialRecipes, nil
 }
 
-func (s *service) GetRecipe(ctx context.Context, id int) (*Recipe, error) {
+func (s *service) GetRecipe(ctx context.Context, id string) (*Recipe, error) {
 
 	recipe, err := s.store.GetRecipe(id)
 	if err != nil {

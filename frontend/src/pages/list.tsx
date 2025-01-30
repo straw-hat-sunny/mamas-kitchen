@@ -5,42 +5,42 @@ import { useEffect, useState } from "react";
 
 const default_items = [
     {
-        id: 1,
+        id: "1",
         title: "Speghetti Bolognese",
         type: "main course" 
     },
     {
-        id: 2,
+        id: "2",
         title: "Pizza",
         type: "main course" 
     },
     {
-        id: 3,
+        id: "3",
         title: "Apple Pie",
         type: "dessert" 
     },
     {  
-        id: 4,
+        id: "4",
         title: "Ice Cream",
         type: "dessert" 
     },
     {
-        id: 5,
+        id: "5",
         title: "Margarita",
         type: "drink" 
     },
     {
-        id: 6,
+        id: "6",
         title: "Mojito",
         type: "drink" 
     },
     {
-        id: 7,
+        id: "7",
         title: "Rum and Coke",
         type: "drink" 
     },
     {
-        id: 8,
+        id: "8",
         title: "Margarita Pizza",
         type: "main course" 
     }
